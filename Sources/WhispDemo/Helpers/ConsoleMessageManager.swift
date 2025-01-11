@@ -1,4 +1,4 @@
-import Whisp
+import WhispAgent
 import Darwin
 
 private struct MessageStatus {

@@ -1,11 +1,11 @@
 import Foundation
 import Starscream
 
-public final class WhispBuilder: Sendable {
+public final class WhispAgentBuilder: Sendable {
     
     // MARK: - Static
     
-    public static let shared = WhispBuilder()
+    public static let shared = WhispAgentBuilder()
     
     // MARK: - Init
     
@@ -20,7 +20,7 @@ public final class WhispBuilder: Sendable {
         publicKey: String,
         network: WhispNetwork,
         session: URLSession = .shared
-    ) throws -> Whisp {
+    ) throws -> WhispAgent {
         
         let requestBuilder = URLRequestBuilder()
         
@@ -40,7 +40,7 @@ public final class WhispBuilder: Sendable {
             )
         )
         
-        return Whisp(
+        return WhispAgent(
             apiKey: apiKey,
             publicKey: publicKey,
             network: network,

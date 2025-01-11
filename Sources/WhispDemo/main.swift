@@ -1,11 +1,11 @@
-import Whisp
+import WhispAgent
 import Foundation
 
 struct WhispDemo {
     /// Needed only for demonstration purpose only
     nonisolated(unsafe) private static var hasProcessingEvent = false
     /// Needed only for demonstration purpose only
-    nonisolated(unsafe) private static var whisp: Whisp!
+    nonisolated(unsafe) private static var whispAgent: WhispAgent!
     /// Needed only for demonstration purpose only
     nonisolated(unsafe) private static var baseUrl = ""
     /// Needed only for demonstration purpose only
@@ -48,7 +48,7 @@ struct WhispDemo {
         
         print("\n\n")
         
-        whisp = try WhispBuilder.shared.build(
+        whispAgent = try WhispAgentBuilder.shared.build(
             url: URL(string: baseUrl)!,
             webSocketUrl: URL(string: websocketBaseUrl)!,
             apiKey: apiKey,
@@ -56,15 +56,15 @@ struct WhispDemo {
             network: .devnet
         )
         
-        try await whisp.setup()
-        try await whisp.connect()
+        try await whispAgent.setup()
+        try await whispAgent.connect()
         
         let consoleManager = ConsoleMessageManager()
         
         // MARK: - Observe Whisp Events
         
         Task.detached {
-            for await event in whisp.listen() {
+            for await event in whispAgent.listen() {
                 hasProcessingEvent = true
                 
                 switch event {
@@ -77,7 +77,7 @@ struct WhispDemo {
                     /// 1. sign transaction, send it and tell transaction `tx_hash` to whisp:
                     ///     - `whisp.send(transactionId: transactionRequest.id, txHash: txHash)`
                     /// 2. sign transaction, make base64 serialization and send it to whisp:
-                    ///     - `whisp.send(signedTransaction: WhispSendSignedTransaction(id: transactionRequest.id, data: data))`
+                    ///     - `whisp.send(signedTransaction: WhispAgentSendSignedTransaction(id: transactionRequest.id, data: data))`
                     /// 3. decline transaction request from whisp using the following method:
                     ///     - `whisp.send(declinedTransactionId: transactionRequest.id))`
                     
@@ -115,7 +115,7 @@ struct WhispDemo {
                     exit(0)
                     
                 } else {
-                    try whisp.send(message: WhispSendTextMessage(text: input))
+                    try whispAgent.send(message: WhispAgentSendTextMessage(text: input))
                 }
             }
         }

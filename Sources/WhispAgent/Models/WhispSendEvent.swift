@@ -1,4 +1,4 @@
-public enum WhispSendEvent: String, Codable {
+public enum WhispAgentSendEvent: String, Codable {
     case text_message
     case tx_hash
     case signed_transaction
@@ -7,14 +7,14 @@ public enum WhispSendEvent: String, Codable {
 
 // MARK: - Text Message
 
-public struct WhispSendTextMessage: Encodable {
+public struct WhispAgentSendTextMessage: Encodable {
     public struct Data: Encodable {
         /// User text message to whisp
         public let text: String
     }
     
     /// Describes send event type
-    public let type = WhispSendEvent.text_message
+    public let type = WhispAgentSendEvent.text_message
     /// Describes send event data
     public let data: Data
     
@@ -27,14 +27,14 @@ public struct WhispSendTextMessage: Encodable {
 
 // MARK: - Transaction
 
-public struct WhispSendDeclinedTransaction: Encodable {
+public struct WhispAgentSendDeclinedTransaction: Encodable {
     public struct Data: Encodable {
         /// Whisp transaction identifier
         public let id: String
     }
     
     /// Describes send event type
-    public let type = WhispSendEvent.decline_transaction
+    public let type = WhispAgentSendEvent.decline_transaction
     /// Describes send event data
     public let data: Data
     
@@ -45,7 +45,7 @@ public struct WhispSendDeclinedTransaction: Encodable {
     }
 }
 
-public struct WhispSendTransactionTxHash: Encodable {
+public struct WhispAgentSendTransactionTxHash: Encodable {
     public struct Data: Encodable {
         /// Whisp transaction identifier
         public let id: String
@@ -53,7 +53,7 @@ public struct WhispSendTransactionTxHash: Encodable {
     }
     
     /// Describes send event type
-    public let type = WhispSendEvent.tx_hash
+    public let type = WhispAgentSendEvent.tx_hash
     /// Describes send event data
     public let data: Data
     
@@ -64,7 +64,7 @@ public struct WhispSendTransactionTxHash: Encodable {
     }
 }
 
-public struct WhispSendSignedTransaction: Encodable {
+public struct WhispAgentSendSignedTransaction: Encodable {
     public struct Data: Encodable {
         /// Whisp transaction identifier
         public let id: String
@@ -73,7 +73,7 @@ public struct WhispSendSignedTransaction: Encodable {
     }
     
     /// Describes send event type
-    public let type = WhispSendEvent.signed_transaction
+    public let type = WhispAgentSendEvent.signed_transaction
     /// Describes send event data
     public let data: Data
     

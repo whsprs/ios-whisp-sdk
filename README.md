@@ -49,10 +49,12 @@ Now you can use `ios-whisp-sdk` in your app.
 
 ### Setup
 
-If you want to interact with ***whisp*** agent, you need to create `Whisp` instance first.
+If you want to interact with ***whisp*** agent, you need to create `WhispAgent` instance first.
 
 ```swift
-let whisp = try WhispBuilder.shared.build(
+import WhispAgent
+
+let whispAgent = try WhispAgentBuilder.shared.build(
     url: url,
     webSocketUrl: webSocketUrl,
     apiKey: apiKey,
@@ -63,11 +65,11 @@ let whisp = try WhispBuilder.shared.build(
 
 ### Observing
 
-Now you can use `Whisp` instance and listen agent events:
+Now you can use `WhispAgent` instance and listen agent events:
 
 ```swift
 Task.detached {
-    for await event in whisp.listen() {
+    for await event in whispAgent.listen() {
         // event processing code
     }
 }
@@ -82,7 +84,7 @@ You can interact with ***whisp*** in multiple ways.
 Send text message from the user:
 
 ```swift
-try whisp.send(message: WhispSendTextMessage(text: input))
+try whispAgent.send(message: WhispAgentSendTextMessage(text: input))
 ```
 
 #### Transaction
@@ -90,20 +92,26 @@ try whisp.send(message: WhispSendTextMessage(text: input))
 Send transaction signature after transaction request event:
 
 ```swift
-try whisp.send(message: WhispSendTransactionTxHash(id: id, txHash: txHash))
+try whispAgent.send(message: WhispAgentSendTransactionTxHash(id: id, txHash: txHash))
 ```
 
 Send sign transaction (base64) after transaction request event:
 
 ```swift
-try whisp.send(message: WhispSendSignedTransaction(id: id, signedTransaction: signedTransaction))
+try whispAgent.send(message: WhispAgentSendSignedTransaction(id: id, signedTransaction: signedTransaction))
 ```
 
 Send decline transaction request event:
 
 ```swift
-try whisp.send(message: WhispSendDeclinedTransaction(id: id))
+try whispAgent.send(message: WhispAgentSendDeclinedTransaction(id: id))
 ```
+
+### UI
+
+> ⚠️ This is an alpha version of the chat UI SDK. It's currently under active development. Public APIs are subject to change until the beta release.
+
+The UI framework provides a simple way to integrate chat interactions with ***whisp*** into your application. It offers ready-to-use components for building chat interfaces with minimal setup required.
 
 # Links
 
