@@ -46,6 +46,9 @@ let package = Package(
                 "WhispAgent",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ],
+            resources: [
+                .process("Resources")
+            ],
             swiftSettings: [
                 .unsafeFlags(["-Xfrontend", "-disable-availability-checking"])
             ]
